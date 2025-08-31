@@ -1,0 +1,1255 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>影视美术道具库 - 专业道具在线租赁与购买</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F52BA', // 深蓝色主色调，代表专业和信任
+                        secondary: '#D4AF37', // 金色辅助色，代表影视行业的高端感
+                        dark: '#1A1A2E', // 深色背景
+                        light: '#F5F5F7', // 浅色文本
+                        neutral: '#2A2A40', // 中性色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            .bg-gradient-pro {
+                background: linear-gradient(135deg, #0F52BA 0%, #1A365D 100%);
+            }
+            .zoom-in {
+                animation: zoomIn 0.3s ease forwards;
+            }
+            @keyframes zoomIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+            .thumbnail-active {
+                border-color: #D4AF37 !important;
+                opacity: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-light font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-neutral/90 backdrop-blur-md fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa fa-film text-secondary text-2xl"></i>
+                <span class="text-xl font-bold tracking-tight">影视道具库</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#props" class="text-gray-300 hover:text-secondary transition-colors duration-300">道具列表</a>
+                <a href="#categories" class="text-gray-300 hover:text-secondary transition-colors duration-300">分类浏览</a>
+                <a href="#about" class="text-gray-300 hover:text-secondary transition-colors duration-300">关于我们</a>
+                <a href="#contact" class="text-gray-300 hover:text-secondary transition-colors duration-300">联系咨询</a>
+            </div>
+            
+            <div class="flex items-center space-x-5">
+                <div class="relative">
+                    <input type="text" placeholder="搜索道具..." class="bg-dark/50 border border-gray-700 rounded-full py-2 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 w-40 md:w-60 transition-all duration-300">
+                    <i class="fa fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                
+                <button class="relative" id="cartToggle">
+                    <i class="fa fa-shopping-cart text-xl hover:text-secondary transition-colors duration-300"></i>
+                    <span id="cartCount" class="absolute -top-2 -right-2 bg-secondary text-dark text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                </button>
+                
+                <button class="md:hidden" id="menuToggle">
+                    <i class="fa fa-bars text-xl hover:text-secondary transition-colors duration-300"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div class="md:hidden bg-neutral h-0 overflow-hidden transition-all duration-300 ease-in-out" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+                <a href="#props" class="text-gray-300 hover:text-secondary transition-colors duration-300 py-2 border-b border-gray-800">道具列表</a>
+                <a href="#categories" class="text-gray-300 hover:text-secondary transition-colors duration-300 py-2 border-b border-gray-800">分类浏览</a>
+                <a href="#about" class="text-gray-300 hover:text-secondary transition-colors duration-300 py-2 border-b border-gray-800">关于我们</a>
+                <a href="#contact" class="text-gray-300 hover:text-secondary transition-colors duration-300 py-2">联系咨询</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区 -->
+    <header class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/id/1073/1920/1080" alt="影视道具背景" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-dark via-dark/90 to-dark"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight text-shadow mb-6">
+                    专业影视道具<br>一站式租赁采购
+                </h1>
+                <p class="text-gray-300 text-[clamp(1rem,2vw,1.25rem)] mb-8 max-w-xl">
+                    超过10,000件精选影视道具，涵盖各年代、各类型场景需求，支持租赁与购买，专业团队提供技术支持。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#props" class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-primary/20">
+                        浏览道具库
+                    </a>
+                    <a href="#categories" class="bg-transparent border-2 border-secondary text-secondary hover:bg-secondary/10 px-8 py-3 rounded-full font-medium transition-all duration-300">
+                        按分类查找
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-8 mt-12">
+                    <div class="flex items-center">
+                        <i class="fa fa-check-circle text-secondary text-xl mr-2"></i>
+                        <span>10,000+ 道具</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-film text-secondary text-xl mr-2"></i>
+                        <span>服务500+ 剧组</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fa fa-truck text-secondary text-xl mr-2"></i>
+                        <span>全国配送</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- 分类部分 -->
+        <section id="categories" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">道具分类</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    我们的道具库按场景和年代分类，满足不同影视创作需求，点击分类快速筛选
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="all">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-th text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">全部道具</span>
+                </button>
+                
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="ancient">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-university text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">古装道具</span>
+                </button>
+                
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="modern">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-building text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">现代都市</span>
+                </button>
+                
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="military">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-shield text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">军事题材</span>
+                </button>
+                
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="sci-fi">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-rocket text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">科幻道具</span>
+                </button>
+                
+                <button class="category-btn flex flex-col items-center p-5 bg-neutral rounded-xl hover:bg-primary/20 transition-all duration-300" data-category="daily">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                        <i class="fa fa-home text-secondary text-xl"></i>
+                    </div>
+                    <span class="text-sm font-medium">日常用品</span>
+                </button>
+            </div>
+        </section>
+        
+        <!-- 道具列表部分 -->
+        <section id="props" class="mb-20">
+            <div class="flex flex-wrap justify-between items-center mb-10">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold">热门道具</h2>
+                
+                <div class="flex items-center space-x-3 mt-4 sm:mt-0">
+                    <span class="text-gray-400 text-sm">排序方式:</span>
+                    <select id="sortSelect" class="bg-neutral border border-gray-700 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <option value="popular">热门程度</option>
+                        <option value="price-low">价格从低到高</option>
+                        <option value="price-high">价格从高到低</option>
+                        <option value="newest">最新上架</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- 道具卡片网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 道具1: 复古电话机 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="modern">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/160/600/400" alt="复古旋转拨号电话机" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer" 
+                            data-img-main="https://picsum.photos/id/160/600/400"
+                            data-img-1="https://picsum.photos/id/161/600/400"
+                            data-img-2="https://picsum.photos/id/162/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute top-3 right-3 bg-secondary/90 text-dark text-xs font-bold px-2 py-1 rounded">
+                            热门
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 3图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">复古旋转拨号电话机</h3>
+                            <span class="text-secondary font-bold">¥30/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">1960年代经典款，完好保存，功能正常，适合年代剧场景</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">12件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.8 (36)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="1" data-name="复古旋转拨号电话机" data-price="30" data-rental="true" data-image="https://picsum.photos/id/160/600/400" data-stock="12">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具2: 古代青铜剑 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="ancient">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/122/600/400" alt="古代青铜剑" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/122/600/400"
+                            data-img-1="https://picsum.photos/id/123/600/400"
+                            data-img-2="https://picsum.photos/id/124/600/400"
+                            data-img-3="https://picsum.photos/id/125/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 4图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">古代青铜剑</h3>
+                            <span class="text-secondary font-bold">¥150/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">汉代风格青铜剑，复刻品，适合古装武打戏份</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">5件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.9 (28)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="2" data-name="古代青铜剑" data-price="150" data-rental="true" data-image="https://picsum.photos/id/122/600/400" data-stock="5">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具3: 科幻控制面板 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="sci-fi">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/119/600/400" alt="科幻风格控制面板" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/119/600/400"
+                            data-img-1="https://picsum.photos/id/120/600/400"
+                            data-img-2="https://picsum.photos/id/121/600/400">
+                        <div class="absolute top-3 left-3 bg-secondary text-dark text-xs font-bold px-2 py-1 rounded">
+                            可购买
+                        </div>
+                        <div class="absolute top-3 right-3 bg-green-600/90 text-white text-xs font-bold px-2 py-1 rounded">
+                            新品
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 3图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">科幻风格控制面板</h3>
+                            <span class="text-secondary font-bold">¥2,800</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">带LED灯光效果，可定制程序，适合科幻电影场景</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">3件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">5.0 (7)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="3" data-name="科幻风格控制面板" data-price="2800" data-rental="false" data-image="https://picsum.photos/id/119/600/400" data-stock="3">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具4: 军用对讲机 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="military">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/96/600/400" alt="军用对讲机" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/96/600/400"
+                            data-img-1="https://picsum.photos/id/97/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 2图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">军用对讲机</h3>
+                            <span class="text-secondary font-bold">¥50/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">仿真军用对讲机，带灯光音效，不可实际通讯</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">20件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.7 (42)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="4" data-name="军用对讲机" data-price="50" data-rental="true" data-image="https://picsum.photos/id/96/600/400" data-stock="20">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具5: 民国时期打字机 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="modern">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/163/600/400" alt="民国时期打字机" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/163/600/400"
+                            data-img-1="https://picsum.photos/id/164/600/400"
+                            data-img-2="https://picsum.photos/id/165/600/400"
+                            data-img-3="https://picsum.photos/id/166/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute top-3 right-3 bg-secondary/90 text-dark text-xs font-bold px-2 py-1 rounded">
+                            热门
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 4图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">民国时期打字机</h3>
+                            <span class="text-secondary font-bold">¥80/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">1930年代老式打字机，可正常使用，适合民国戏</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-yellow-400">2件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.9 (56)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="5" data-name="民国时期打字机" data-price="80" data-rental="true" data-image="https://picsum.photos/id/163/600/400" data-stock="2">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具6: 古代陶瓷花瓶 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="ancient">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/30/600/400" alt="古代陶瓷花瓶" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/30/600/400"
+                            data-img-1="https://picsum.photos/id/31/600/400"
+                            data-img-2="https://picsum.photos/id/32/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 3图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">古代陶瓷花瓶</h3>
+                            <span class="text-secondary font-bold">¥60/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">宋代风格青瓷花瓶，仿古工艺，适合古装场景摆设</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">8件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.6 (23)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="6" data-name="古代陶瓷花瓶" data-price="60" data-rental="true" data-image="https://picsum.photos/id/30/600/400" data-stock="8">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具7: 复古相机 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="daily">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/118/600/400" alt="复古胶片相机" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/118/600/400"
+                            data-img-1="https://picsum.photos/id/117/600/400"
+                            data-img-2="https://picsum.photos/id/116/600/400"
+                            data-img-3="https://picsum.photos/id/115/600/400">
+                        <div class="absolute top-3 left-3 bg-secondary text-dark text-xs font-bold px-2 py-1 rounded">
+                            可购买
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 4图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">复古胶片相机</h3>
+                            <span class="text-secondary font-bold">¥1,200</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">1970年代经典款胶片相机，功能完好，适合多种场景</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">6件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.8 (31)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="7" data-name="复古胶片相机" data-price="1200" data-rental="false" data-image="https://picsum.photos/id/118/600/400" data-stock="6">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 道具8: 科幻激光枪 -->
+                <div class="bg-neutral rounded-xl overflow-hidden shadow-lg card-hover prop-item" data-category="sci-fi">
+                    <div class="relative h-56">
+                        <img src="https://picsum.photos/id/106/600/400" alt="科幻激光枪道具" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 prop-image cursor-pointer"
+                            data-img-main="https://picsum.photos/id/106/600/400"
+                            data-img-1="https://picsum.photos/id/107/600/400"
+                            data-img-2="https://picsum.photos/id/108/600/400"
+                            data-img-3="https://picsum.photos/id/109/600/400">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
+                            租赁
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-dark/70 text-white text-xs px-2 py-1 rounded-full flex items-center">
+                            <i class="fa fa-images mr-1"></i> 4图
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-lg">科幻激光枪道具</h3>
+                            <span class="text-secondary font-bold">¥120/天</span>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">带声光效果，轻质材料，适合科幻动作场景</p>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-300">库存: <span class="text-green-400">15件</span></span>
+                            </div>
+                            <div class="flex items-center text-sm">
+                                <i class="fa fa-star text-yellow-500 mr-1"></i>
+                                <span class="text-gray-300">4.7 (48)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart w-full bg-primary hover:bg-primary/90 text-white py-2 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center" data-id="8" data-name="科幻激光枪道具" data-price="120" data-rental="true" data-image="https://picsum.photos/id/106/600/400" data-stock="15">
+                            <i class="fa fa-plus-circle mr-2"></i> 加入购物车
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 加载更多按钮 -->
+            <div class="text-center mt-12">
+                <button id="loadMore" class="bg-transparent border border-primary text-primary hover:bg-primary/10 px-8 py-3 rounded-full font-medium transition-all duration-300">
+                    加载更多道具 <i class="fa fa-chevron-down ml-2"></i>
+                </button>
+            </div>
+        </section>
+        
+        <!-- 服务优势 -->
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">我们的服务优势</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    专业团队，用心服务，为您的影视创作提供全方位道具支持
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-neutral p-6 rounded-xl hover:bg-neutral/80 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-truck text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">快速配送</h3>
+                    <p class="text-gray-400">
+                        全国范围内24小时送达，紧急情况可提供4小时加急服务
+                    </p>
+                </div>
+                
+                <div class="bg-neutral p-6 rounded-xl hover:bg-neutral/80 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-handshake-o text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">灵活租赁</h3>
+                    <p class="text-gray-400">
+                        支持按天、按周、按月租赁，长期合作可享更多优惠
+                    </p>
+                </div>
+                
+                <div class="bg-neutral p-6 rounded-xl hover:bg-neutral/80 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-wrench text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">专业维护</h3>
+                    <p class="text-gray-400">
+                        所有道具均经过专业维护，提供使用指导和现场技术支持
+                    </p>
+                </div>
+                
+                <div class="bg-neutral p-6 rounded-xl hover:bg-neutral/80 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-paint-brush text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">定制服务</h3>
+                    <p class="text-gray-400">
+                        支持特殊道具定制，根据剧本需求专业打造专属道具
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 购物车侧边栏 -->
+        <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-neutral shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-hidden flex flex-col">
+            <div class="p-5 border-b border-gray-800 flex justify-between items-center">
+                <h3 class="font-bold text-xl">我的购物车</h3>
+                <button id="closeCart" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4">
+                <!-- 购物车为空时显示 -->
+                <div id="emptyCart" class="flex flex-col items-center justify-center h-full py-10">
+                    <i class="fa fa-shopping-cart text-gray-600 text-5xl mb-4"></i>
+                    <p class="text-gray-400">您的购物车是空的</p>
+                    <button class="mt-4 text-secondary hover:text-secondary/80 font-medium" id="startShopping">
+                        开始浏览道具
+                    </button>
+                </div>
+                
+                <!-- 购物车商品将通过JavaScript动态添加 -->
+            </div>
+            
+            <!-- 订单信息 -->
+            <div id="orderInfo" class="hidden p-5 border-t border-gray-800">
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between pb-2 border-b border-gray-800">
+                        <span class="text-gray-400">小计</span>
+                        <span id="subtotal">¥0.00</span>
+                    </div>
+                    <div class="flex justify-between pb-2 border-b border-gray-800">
+                        <span class="text-gray-400">服务费</span>
+                        <span id="serviceFee">¥0.00</span>
+                    </div>
+                    <div class="flex justify-between pb-2 border-b border-gray-800">
+                        <span class="text-gray-400">配送费</span>
+                        <span id="deliveryFee">¥0.00</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-lg">
+                        <span>总计</span>
+                        <span id="total" class="text-secondary">¥0.00</span>
+                    </div>
+                </div>
+                
+                <button id="checkoutBtn" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-medium transition-colors duration-300 mb-3">
+                    提交订单
+                </button>
+                <button id="continueShoppingBtn" class="w-full bg-transparent border border-gray-700 text-gray-300 hover:bg-gray-800 py-3 rounded-lg font-medium transition-colors duration-300">
+                    继续购物
+                </button>
+            </div>
+        </div>
+        
+        <!-- 图片预览模态框 - 带图集功能 -->
+        <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+            <div class="absolute inset-0 bg-black bg-opacity-90" id="modalOverlay"></div>
+            <div class="relative z-10 max-w-6xl w-full flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modalTitle" class="text-white text-xl font-medium"></h3>
+                    <button id="closeModal" class="text-white hover:text-secondary transition-colors duration-300">
+                        <i class="fa fa-times text-2xl"></i>
+                    </button>
+                </div>
+                <div class="flex-1 flex justify-center items-center">
+                    <img id="modalImage" src="" alt="道具大图预览" class="w-full h-auto max-h-[70vh] object-contain zoom-in">
+                </div>
+                
+                <!-- 缩略图导航 -->
+                <div id="thumbnailContainer" class="flex space-x-3 mt-6 overflow-x-auto py-2 px-1 scrollbar-hide">
+                    <!-- 缩略图将通过JavaScript动态添加 -->
+                </div>
+                
+                <!-- 上传更多图片按钮 (仅管理员可见) -->
+                <div class="mt-4 text-center">
+                    <button id="uploadMoreImages" class="text-secondary hover:text-secondary/80 text-sm font-medium transition-colors duration-300 hidden md:flex items-center justify-center">
+                        <i class="fa fa-upload mr-1"></i> 上传更多图片
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 遮罩层 -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-70 z-40 hidden transition-opacity duration-300"></div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <i class="fa fa-film text-secondary text-2xl"></i>
+                        <span class="text-xl font-bold">影视道具库</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        专业的影视道具租赁与销售平台，为影视创作提供全方位道具支持，让每一个场景都栩栩如生。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-weixin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-dark flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-all duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#props" class="text-gray-400 hover:text-secondary transition-colors duration-300">道具列表</a></li>
+                        <li><a href="#categories" class="text-gray-400 hover:text-secondary transition-colors duration-300">分类浏览</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition-colors duration-300">租赁流程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition-colors duration-300">购买流程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition-colors duration-300">常见问题</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition-colors duration-300">会员服务</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-secondary mt-1 mr-3"></i>
+                            <span class="text-gray-400">北京市朝阳区影视产业园A座101</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-secondary mr-3"></i>
+                            <span class="text-gray-400">400-888-9999</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-secondary mr-3"></i>
+                            <span class="text-gray-400">props@filmstudio.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-clock-o text-secondary mr-3"></i>
+                            <span class="text-gray-400">周一至周日 9:00-21:00</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-6">订阅资讯</h4>
+                    <p class="text-gray-400 mb-4">
+                        订阅我们的资讯，获取最新道具信息和优惠活动
+                    </p>
+                    <div class="flex mb-4">
+                        <input type="email" placeholder="您的邮箱地址" class="bg-dark border border-gray-700 rounded-l-lg py-2 px-4 w-full focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 rounded-r-lg transition-colors duration-300">
+                            <i class="fa fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <p class="text-gray-500 text-sm">
+                        我们尊重您的隐私，不会向第三方分享您的信息
+                    </p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm">
+                <p>© 2023 影视道具库 版权所有 | 京ICP备12345678号</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 购物车数据
+        let cart = [];
+        // 当前道具图片集
+        let currentImageSet = [];
+        
+        // DOM 元素
+        const cartSidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('overlay');
+        const cartToggle = document.getElementById('cartToggle');
+        const closeCart = document.getElementById('closeCart');
+        const startShopping = document.getElementById('startShopping');
+        const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+        const cartItems = document.getElementById('cartItems');
+        const emptyCart = document.getElementById('emptyCart');
+        const orderInfo = document.getElementById('orderInfo');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const cartCount = document.getElementById('cartCount');
+        const subtotalElement = document.getElementById('subtotal');
+        const serviceFeeElement = document.getElementById('serviceFee');
+        const deliveryFeeElement = document.getElementById('deliveryFee');
+        const totalElement = document.getElementById('total');
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const sortSelect = document.getElementById('sortSelect');
+        // 图片预览相关元素
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModal');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const thumbnailContainer = document.getElementById('thumbnailContainer');
+        const uploadMoreImages = document.getElementById('uploadMoreImages');
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('py-2', 'shadow-lg');
+                navbar.classList.remove('py-4', 'shadow-md');
+            } else {
+                navbar.classList.add('py-4', 'shadow-md');
+                navbar.classList.remove('py-2', 'shadow-lg');
+            }
+        });
+        
+        // 移动端菜单切换
+        menuToggle.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('h-0')) {
+                mobileMenu.classList.remove('h-0');
+                mobileMenu.classList.add('h-auto', 'py-4');
+                menuToggle.innerHTML = '<i class="fa fa-times text-xl"></i>';
+            } else {
+                mobileMenu.classList.add('h-0');
+                mobileMenu.classList.remove('h-auto', 'py-4');
+                menuToggle.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+            }
+        });
+        
+        // 打开购物车
+        function openCart() {
+            cartSidebar.classList.remove('translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 关闭购物车
+        function closeCartSidebar() {
+            cartSidebar.classList.add('translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        
+        // 打开图片预览 - 带图集功能
+        function openImagePreview(imgElement) {
+            // 获取道具名称
+            const propName = imgElement.closest('.prop-item').querySelector('h3').textContent;
+            modalTitle.textContent = propName;
+            
+            // 收集所有图片
+            currentImageSet = [];
+            // 主图
+            const mainImg = imgElement.getAttribute('data-img-main');
+            if (mainImg) currentImageSet.push(mainImg);
+            
+            // 额外图片
+            let i = 1;
+            while (true) {
+                const img = imgElement.getAttribute(`data-img-${i}`);
+                if (img) {
+                    currentImageSet.push(img);
+                    i++;
+                } else {
+                    break;
+                }
+            }
+            
+            // 设置主图
+            modalImage.src = mainImg;
+            
+            // 生成缩略图
+            generateThumbnails();
+            
+            // 显示模态框
+            imageModal.classList.remove('hidden');
+            imageModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 生成缩略图
+        function generateThumbnails() {
+            thumbnailContainer.innerHTML = '';
+            
+            currentImageSet.forEach((imgSrc, index) => {
+                const thumbnail = document.createElement('div');
+                thumbnail.className = `w-20 h-16 rounded-md overflow-hidden cursor-pointer transition-all duration-300 ${index === 0 ? 'thumbnail-active' : 'opacity-70 hover:opacity-100'}`;
+                thumbnail.innerHTML = `<img src="${imgSrc}" alt="缩略图 ${index + 1}" class="w-full h-full object-cover">`;
+                
+                // 点击切换主图
+                thumbnail.addEventListener('click', () => {
+                    modalImage.src = imgSrc;
+                    // 更新活跃状态
+                    document.querySelectorAll('#thumbnailContainer > div').forEach(el => {
+                        el.classList.remove('thumbnail-active');
+                        el.classList.add('opacity-70', 'hover:opacity-100');
+                    });
+                    thumbnail.classList.add('thumbnail-active');
+                    thumbnail.classList.remove('opacity-70', 'hover:opacity-100');
+                });
+                
+                thumbnailContainer.appendChild(thumbnail);
+            });
+        }
+        
+        // 关闭图片预览
+        function closeImagePreview() {
+            imageModal.classList.add('hidden');
+            imageModal.classList.remove('flex');
+            document.body.style.overflow = '';
+            currentImageSet = [];
+        }
+        
+        // 图片预览事件监听
+        document.querySelectorAll('.prop-image').forEach(img => {
+            img.addEventListener('click', () => {
+                openImagePreview(img);
+            });
+        });
+        
+        closeModal.addEventListener('click', closeImagePreview);
+        modalOverlay.addEventListener('click', closeImagePreview);
+        
+        // 上传更多图片按钮事件
+        uploadMoreImages.addEventListener('click', () => {
+            // 实际项目中这里会打开文件上传对话框
+            alert('此功能仅管理员可见，用于上传更多道具图片');
+        });
+        
+        // 分类筛选
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const propItems = document.querySelectorAll('.prop-item');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 移除所有按钮的活跃状态
+                categoryBtns.forEach(b => {
+                    b.classList.remove('bg-primary/20');
+                    b.classList.add('hover:bg-primary/20');
+                });
+                
+                // 添加当前按钮的活跃状态
+                btn.classList.add('bg-primary/20');
+                btn.classList.remove('hover:bg-primary/20');
+                
+                const category = btn.getAttribute('data-category');
+                
+                // 筛选道具项
+                propItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.classList.remove('hidden');
+                        // 添加淡入动画
+                        item.style.opacity = '0';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transition = 'opacity 0.3s ease';
+                        }, 50);
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        
+        // 添加道具到购物车
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseFloat(button.getAttribute('data-price'));
+                const rental = button.getAttribute('data-rental') === 'true';
+                const image = button.getAttribute('data-image');
+                const stock = parseInt(button.getAttribute('data-stock'));
+                
+                // 检查道具是否已在购物车中
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    // 检查库存
+                    if (existingItem.quantity < stock) {
+                        existingItem.quantity += 1;
+                        showAddToCartAnimation(button);
+                    } else {
+                        alert('抱歉，超出库存数量');
+                    }
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        rental,
+                        image,
+                        stock,
+                        quantity: 1,
+                        // 租赁项默认租赁7天
+                        rentalDays: rental ? 7 : 1
+                    });
+                    showAddToCartAnimation(button);
+                }
+                
+                updateCart();
+                openCart();
+            });
+        });
+        
+        // 添加到购物车的动画效果
+        function showAddToCartAnimation(button) {
+            // 创建一个临时元素模拟添加动画
+            const tempElement = document.createElement('div');
+            tempElement.innerHTML = '<i class="fa fa-check text-white"></i>';
+            tempElement.className = 'fixed bg-green-600 rounded-full w-10 h-10 flex items-center justify-center z-50 transform scale-0';
+            
+            // 获取按钮位置
+            const rect = button.getBoundingClientRect();
+            tempElement.style.top = `${rect.top + window.scrollY + rect.height/2}px`;
+            tempElement.style.left = `${rect.left + rect.width/2}px`;
+            
+            document.body.appendChild(tempElement);
+            
+            // 执行动画
+            setTimeout(() => {
+                tempElement.style.transition = 'all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                tempElement.style.transform = 'scale(1)';
+            }, 10);
+            
+            // 动画结束后移除元素
+            setTimeout(() => {
+                tempElement.style.opacity = '0';
+                tempElement.style.transform = 'scale(0)';
+                
+                setTimeout(() => {
+                    document.body.removeChild(tempElement);
+                }, 600);
+            }, 1000);
+        }
+        
+        // 更新购物车
+        function updateCart() {
+            // 更新购物车计数
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // 显示或隐藏空购物车提示
+            if (cart.length === 0) {
+                emptyCart.classList.remove('hidden');
+                orderInfo.classList.add('hidden');
+            } else {
+                emptyCart.classList.add('hidden');
+                orderInfo.classList.remove('hidden');
+                
+                // 清空购物车项容器
+                cartItems.innerHTML = '';
+                
+                // 添加购物车项
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'flex items-center space-x-3 p-3 border-b border-gray-800';
+                    
+                    // 价格显示，租赁项显示每天价格和租赁天数
+                    const priceDisplay = item.rental 
+                        ? `<p class="text-sm text-gray-400">¥${item.price.toFixed(2)}/天 × ${item.rentalDays}天</p>`
+                        : `<p class="text-sm text-gray-400">¥${item.price.toFixed(2)}</p>`;
+                    
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-medium text-white truncate">${item.name}</h4>
+                            ${priceDisplay}
+                            <div class="flex items-center text-xs mt-1">
+                                <i class="fa fa-cubes text-primary mr-1"></i>
+                                <span class="text-gray-500">库存: ${item.stock}件</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="decrease-qty bg-dark text-gray-400 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-colors duration-300" data-id="${item.id}">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <span class="qty w-6 text-center">${item.quantity}</span>
+                            <button class="increase-qty bg-dark text-gray-400 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-colors duration-300" data-id="${item.id}">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        ${item.rental ? `
+                        <div class="ml-2 flex flex-col items-center">
+                            <span class="text-xs text-gray-500 mb-1">租赁天数</span>
+                            <div class="flex items-center space-x-1">
+                                <button class="decrease-days bg-dark text-gray-400 rounded w-6 h-6 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-colors duration-300 text-xs" data-id="${item.id}">
+                                    -
+                                </button>
+                                <span class="days w-6 text-center text-sm">${item.rentalDays}</span>
+                                <button class="increase-days bg-dark text-gray-400 rounded w-6 h-6 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-colors duration-300 text-xs" data-id="${item.id}">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        ` : ''}
+                        <div class="ml-2">
+                            <button class="remove-item text-gray-500 hover:text-red-500 transition-colors duration-300" data-id="${item.id}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                
+                // 添加增减数量、天数和删除按钮事件
+                document.querySelectorAll('.decrease-qty').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                        } else {
+                            cart = cart.filter(item => item.id !== id);
+                        }
+                        
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.increase-qty').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (item.quantity < item.stock) {
+                            item.quantity += 1;
+                            updateCart();
+                        } else {
+                            alert('抱歉，超出库存数量');
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.decrease-days').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        
+                        if (item.rentalDays > 1) {
+                            item.rentalDays -= 1;
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.increase-days').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        item.rentalDays += 1;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                    });
+                });
+                
+                // 计算并更新价格
+                calculatePrices();
+            }
+        }
+        
+        // 计算并更新价格
+        function calculatePrices() {
+            // 计算小计 (租赁项价格 = 单价 × 数量 × 天数)
+            const subtotal = cart.reduce((sum, item) => {
+                return sum + (item.price * item.quantity * (item.rental ? item.rentalDays : 1));
+            }, 0);
+            
+            // 服务费 (小计的10%)
+            const serviceFee = subtotal * 0.1;
+            
+            // 配送费 (满500元免配送费)
+            const deliveryFee = subtotal >= 500 ? 0 : 50;
+            
+            // 计算总计
+            const total = subtotal + serviceFee + deliveryFee;
+            
+            // 更新价格显示
+            subtotalElement.textContent = `¥${subtotal.toFixed(2)}`;
+            serviceFeeElement.textContent = `¥${serviceFee.toFixed(2)}`;
+            deliveryFeeElement.textContent = `¥${deliveryFee.toFixed(2)}`;
+            totalElement.textContent = `¥${total.toFixed(2)}`;
+        }
+        
+        // 结算按钮点击事件
+        checkoutBtn.addEventListener('click', () => {
+            // 这里可以添加订单提交逻辑
+            alert('订单提交成功！我们的客服将尽快与您联系确认详情。');
+            cart = [];
+            updateCart();
+            closeCartSidebar();
+        });
+        
+        // 加载更多按钮点击事件
+        loadMoreBtn.addEventListener('click', () => {
+            // 模拟加载更多效果
+            loadMoreBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> 加载中...';
+            
+            setTimeout(() => {
+                loadMoreBtn.innerHTML = '没有更多道具了 <i class="fa fa-check ml-2"></i>';
+                loadMoreBtn.disabled = true;
+                loadMoreBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            }, 1500);
+        });
+        
+        // 排序选择事件
+        sortSelect.addEventListener('change', () => {
+            // 这里可以添加排序逻辑
+            alert(`已按${sortSelect.options[sortSelect.selectedIndex].text}排序`);
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端，点击后关闭菜单
+                    if (window.innerWidth < 768) {
+                        mobileMenu.classList.add('h-0');
+                        mobileMenu.classList.remove('h-auto', 'py-4');
+                        menuToggle.innerHTML = '<i class="fa fa-bars text-xl"></i>';
+                    }
+                }
+            });
+        });
+        
+        // 购物车事件监听
+        cartToggle.addEventListener('click', openCart);
+        closeCart.addEventListener('click', closeCartSidebar);
+        startShopping.addEventListener('click', closeCartSidebar);
+        continueShoppingBtn.addEventListener('click', closeCartSidebar);
+        overlay.addEventListener('click', closeCartSidebar);
+        
+        // 初始化购物车
+        updateCart();
+    </script>
+
+
+</body></html>
+    
